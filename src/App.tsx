@@ -1,8 +1,9 @@
+import ChatInterface from "./components/ChatInterface";
+
 function App() {
   return (
-    <div>
-      <h1>Welcome to TalkieAi</h1>
-      <p>Start building your app here!</p>
+    <div style={{ height: '100vh' }}>
+      <ChatInterface />
     </div>
   );
 }
