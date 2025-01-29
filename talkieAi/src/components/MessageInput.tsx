@@ -19,6 +19,11 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
   };
 
   const startListening = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Your browser does not support speech recognition. Please use Chrome or Edge.');
+      return;
+    }
+
     const recognition = new (window as any).webkitSpeechRecognition();
     recognition.lang = 'en-US';
     recognition.onresult = (event: any) => {
@@ -52,9 +57,9 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
         color={isListening ? 'secondary' : 'primary'}
         onClick={startListening}
         disabled={isListening}
-        >
+      >
         <MicIcon />
-        </IconButton>
+      </IconButton>
       <IconButton color="primary" onClick={handleSend}>
         <SendIcon />
       </IconButton>
