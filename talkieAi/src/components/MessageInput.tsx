@@ -26,15 +26,27 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
 
     const recognition = new (window as any).webkitSpeechRecognition();
     recognition.lang = 'en-US';
+    recognition.interimResults = false; // Only final results
+    recognition.continuous = false; // Stop after one sentence
+
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setInputText(transcript);
       setIsListening(false);
+
+      onSend(transcript);
+      setInputText(''); // Clear the input field
     };
+
     recognition.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
       setIsListening(false);
     };
+
+    recognition.onend = () => {
+      setIsListening(false); // Reset listening state
+    };
+
     recognition.start();
     setIsListening(true);
   };
