@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import { sendMessageToAI } from '../services/api';
@@ -12,6 +12,7 @@ interface Message {
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSend = async (text: string) => {
     const newMessage: Message = {
@@ -20,6 +21,7 @@ const ChatInterface: React.FC = () => {
       sender: 'user',
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setIsLoading(true);
 
     try {
       const aiResponse = await sendMessageToAI(text);
@@ -31,6 +33,8 @@ const ChatInterface: React.FC = () => {
       setMessages((prevMessages) => [...prevMessages, aiMessage]);
     } catch (error) {
       console.error('Failed to get AI response:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,6 +45,12 @@ const ChatInterface: React.FC = () => {
       </Box>
 
       <MessageList messages={messages} />
+
+      { isLoading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+          <CircularProgress size={24} />
+        </Box>
+      )}
 
       <Box sx={{ bgcolor: '#f5f5f5', p: 2, boxShadow: 2 }}>
         <MessageInput onSend={handleSend} />
