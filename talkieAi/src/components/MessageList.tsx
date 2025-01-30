@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText } from '@mui/material';
 
 interface Message {
   id: number;

@@ -35,7 +35,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
       setIsListening(false);
 
       onSend(transcript);
-      setInputText(''); // Clear the input field
+      setInputText(''); 
     };
 
     recognition.onerror = (event: any) => {
@@ -44,7 +44,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
     };
 
     recognition.onend = () => {
-      setIsListening(false); // Reset listening state
+      setIsListening(false); 
     };
 
     recognition.start();

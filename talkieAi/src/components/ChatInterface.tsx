@@ -36,15 +36,12 @@ const ChatInterface: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      {/* Fixed Header */}
       <Box sx={{ bgcolor: '#1976d2', color: '#fff', p: 2, boxShadow: 2 }}>
-        <Typography variant="h6">English Tutor</Typography>
+        <Typography variant="h6">TalkieAi</Typography>
       </Box>
 
-      {/* Scrollable Message List */}
       <MessageList messages={messages} />
 
-      {/* Fixed Input Area */}
       <Box sx={{ bgcolor: '#f5f5f5', p: 2, boxShadow: 2 }}>
         <MessageInput onSend={handleSend} />
       </Box>
