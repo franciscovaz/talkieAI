@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 interface Message {
   id: number;
@@ -13,7 +13,7 @@ interface MessageListProps {
 
 const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   return (
-    <Box sx={{ flex: 1, overflowY: 'auto', p: 2 }}>
+    <Box sx={{ flex: 1, overflowY: 'auto', p: 2, bgcolor: '#fafafa' }}>
       <List>
         {messages.map((message) => (
           <ListItem
@@ -24,11 +24,13 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
           >
             <Box
               sx={{
-                bgcolor: message.sender === 'user' ? '#1976d2' : '#f5f5f5',
+                bgcolor: message.sender === 'user' ? '#1976d2' : '#e0e0e0',
                 color: message.sender === 'user' ? '#fff' : '#000',
                 borderRadius: 2,
                 p: 1.5,
                 maxWidth: '70%',
+                wordWrap: 'break-word',
+                boxShadow: 1,
               }}
             >
               <ListItemText primary={message.text} />
