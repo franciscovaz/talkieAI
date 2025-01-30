@@ -13,19 +13,6 @@ interface Message {
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
 
-  // Function to speak text using the Web Speech API
-  const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US'; // Set language to English
-      utterance.rate = 1; // Speed of speech (1 is normal)
-      utterance.pitch = 1; // Pitch of speech (1 is normal)
-      window.speechSynthesis.speak(utterance);
-    } else {
-      console.warn('Text-to-speech not supported in this browser.');
-    }
-  };
-
   const handleSend = async (text: string) => {
     const newMessage: Message = {
       id: messages.length + 1,
@@ -36,15 +23,12 @@ const ChatInterface: React.FC = () => {
 
     try {
       const aiResponse = await sendMessageToAI(text);
-
       const aiMessage: Message = {
         id: messages.length + 2,
         text: aiResponse,
         sender: 'ai',
       };
       setMessages((prevMessages) => [...prevMessages, aiMessage]);
-
-      speak(aiResponse);
     } catch (error) {
       console.error('Failed to get AI response:', error);
     }
@@ -52,11 +36,18 @@ const ChatInterface: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <Box sx={{ bgcolor: '#1976d2', color: '#fff', p: 2 }}>
-        <Typography variant="h6">TalkieAi</Typography>
+      {/* Fixed Header */}
+      <Box sx={{ bgcolor: '#1976d2', color: '#fff', p: 2, boxShadow: 2 }}>
+        <Typography variant="h6">English Tutor</Typography>
       </Box>
+
+      {/* Scrollable Message List */}
       <MessageList messages={messages} />
-      <MessageInput onSend={handleSend} />
+
+      {/* Fixed Input Area */}
+      <Box sx={{ bgcolor: '#f5f5f5', p: 2, boxShadow: 2 }}>
+        <MessageInput onSend={handleSend} />
+      </Box>
     </Box>
   );
 };
