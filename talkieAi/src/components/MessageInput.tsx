@@ -68,9 +68,9 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
       <IconButton
         color={isListening ? 'secondary' : 'primary'}
         onClick={startListening}
-        disabled={isListening}
-      >
-        <MicIcon />
+        disabled={isListening}>
+          <MicIcon />
+          {isListening && <span style={{ marginLeft: '8px' }}>Listening...</span>}
       </IconButton>
       <IconButton color="primary" onClick={handleSend}>
         <SendIcon />
